@@ -17,7 +17,7 @@
        :body   (ex-data e)})))
 
 (defn authenticate-user-handler
-  "A web handler to create a new user"
+  "A web handler to authenticate an existing user"
   [{{{:keys [username password]} :query} :parameters}]
   (try
     {:status 200

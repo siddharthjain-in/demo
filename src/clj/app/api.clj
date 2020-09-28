@@ -37,12 +37,3 @@
                                         :password      string?
                                         (ds/opt :role) keyword?}}
                     :handler    create-user-handler}}]])
-
-(comment
-  (fn [{{:keys [username password]} :parameters :as req}]
-    (clojure.pprint/pprint req)
-    (try
-      {:status 200
-       :body   (auth/create-user auth/user-database username password)}
-      (catch Exception e {:status 400
-                          :body   (ex-data e)}))))

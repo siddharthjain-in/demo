@@ -16,6 +16,7 @@
       {:status 400
        :body   (ex-data e)})))
 
+
 (defn authenticate-user-handler
   "A web handler to authenticate an existing user"
   [{{{:keys [username password]} :query} :parameters}]
@@ -32,6 +33,7 @@
                     :parameters {:query {:username string?
                                          :password string?}}
                     :handler    authenticate-user-handler}
+
              :post {:summary    "Creates a new user in the database, returning their details"
                     :parameters {:body {:username      string?
                                         :password      string?

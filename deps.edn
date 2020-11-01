@@ -1,7 +1,12 @@
-{:paths   ["src/clj" "resources"]
- :deps    {org.clojure/clojure       {:mvn/version "1.10.1"}
-           org.clojure/clojurescript {:mvn/version "1.10.520"}
-           metosin/reitit            {:mvn/version "0.5.6"}
-           ring/ring-jetty-adapter   {:mvn/version "1.7.1"}}
- :aliases {:server {:main-opts  ["-m" "app.server"]
-                    :extra-deps {}}}}
+{:paths       ["src/clj" "resources"]
+
+ :extra-paths ["test"]
+
+ :deps        {org.clojure/clojure       {:mvn/version "1.10.1"}
+               org.clojure/clojurescript {:mvn/version "1.10.520"}
+               metosin/reitit            {:mvn/version "0.5.6"}
+               ring/ring-jetty-adapter   {:mvn/version "1.7.1"}
+               ring/ring-mock            {:mvn/version "0.4.0"}}
+
+ :aliases     {:server {:main-opts  ["-m" "app.server"]
+                        :extra-deps {}}}}

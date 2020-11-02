@@ -23,7 +23,7 @@
     (testing "password containing no upper case letter"
       (is (nil? (create-user-helper auth/user-database "user" "abcd1234$"))))
 
-    (testing "password containing no special characters"
+    (testing "password containing no special character"
       (is (nil? (create-user-helper auth/user-database "user" "Abcd1234"))))
 
     (testing "password having more than 20 characters"
@@ -39,34 +39,35 @@
     (testing "username containing more than 20 characters"
       (is (nil? (create-user-helper auth/user-database "Username123_1234567890" "Abcd1234$"))))
 
-    (testing "username starting with a non alphabetic character"
+    (testing "username starting with a non-alphabetic character"
       (is (nil? (create-user-helper auth/user-database "1Username" "abcd1234$"))))
 
-    (testing "username containing special character othe than _ and . "
+    (testing "username containing special character other than '_' and '.' "
       (is (nil? (create-user-helper auth/user-database "username#" "Abcd1234$"))))))
 
 
 (deftest create-user-with-duplicate-user-name-test
-  (testing "Create user with already existing username defaultuser is not allowed"
+
+  (testing "Creating a new user with already existing username is not allowed"
     (is (nil? (create-user-helper auth/user-database "defaultuser" "Newpassword@123"))))
 
-  (testing "Create two users with same username is not allowed"
+  (testing "Creating two users with same username is not allowed"
     (is (nil? (if (create-user-helper auth/user-database "newusername" "Password123!")
                 (create-user-helper auth/user-database "newusername" "Password123!") nil)))))
 
 
 (deftest authenticate-user-test
-  (testing "Can authenticate user with valid password should be allowed"
+  (testing "Authenticating user with correct password should succeed"
     (is (not= nil (try
                     (auth/authenticate-user @auth/user-database "defaultuser" "password@123")
                     (catch Exception _ nil)))))
 
-  (testing "Authenticating a user with incorrect password is not allowed"
+  (testing "Authenticating a user with wrong password is not allowed"
     (is (nil? (try
                 (auth/authenticate-user @auth/user-database "defaultuser" "Password")
                 (catch Exception _ nil)))))
 
-  (testing "Authenticating non-existing user is not allowed"
+  (testing "Authenticating un-registered user is not allowed"
     (is (nil? (try
                 (auth/authenticate-user @auth/user-database "nonuser" "Password")
                 (catch Exception _ nil))))))

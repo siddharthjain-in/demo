@@ -33,11 +33,11 @@
           (< (count username) 8)
           (conj :username.error/too-short)
 
-          ; username must be not more than 20 characters long
+          ; username must not be more than 20 characters long
           (> (count username) 20)
           (conj :username.error/too-long)
 
-          ; username must start with a letter
+          ; username must begin with a letter
           (empty? (re-matches #"[a-zA-Z](.*)" username))
           (conj :username.error/invalid-initial-character)
 
@@ -54,7 +54,7 @@
           (< (count password) 8)
           (conj :password.error/too-short)
 
-          ; password must be not more than 30 characters long
+          ; password must not be more than 20 characters long
           (> (count password) 20)
           (conj :password.error/too-long)
 
@@ -70,9 +70,9 @@
           (empty? (re-find #".*[A-Z]" password))
           (conj :password.error/missing-uppercase)
 
-          ; password contains at least one decimal digit
+          ; password contains at least one numeric digit
           (empty? (re-find #".*[0-9]" password))
-          (conj :password.error/missing-decimal-digit)))
+          (conj :password.error/missing-digit)))
 
 
 (defn authenticate-user

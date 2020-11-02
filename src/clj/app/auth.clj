@@ -91,16 +91,15 @@
    ; recur with a default role of :user
    (create-user db-atom username password :user))
   ([db-atom username password role]
-   (do
      ; if there are any password violations
-     (if-let [password-violations (not-empty (password-rules password))]
+     (when-let [password-violations (not-empty (password-rules password))]
        ; then throw an exception with the violation codes
        (throw (ex-info "Password does not meet criteria"
                        {:reason     :create-user.error/password-violations
                         :violations password-violations})))
 
      ; if there are any username violations
-     (if-let [username-violations (not-empty (username-rules username))]
+     (when-let [username-violations (not-empty (username-rules username))]
        ; then throw an exception with the violation codes
        (throw (ex-info "Username does not meet criteria"
                        {:reason     :create-user.error/username-violations
@@ -113,4 +112,4 @@
                        {:reason :create-user.error/already-exists}))
 
        ; otherwise add user to database and return a success message with the user's details
-       (add-user-to-database db-atom username password role)))))
+       (add-user-to-database db-atom username password role))))
